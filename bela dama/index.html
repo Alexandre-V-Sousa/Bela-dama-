@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Para Minha Bela Dama — Luiza</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07050a; --bg-2:#100819; --accent:#6c63ff; --accent-2:#b7a7ff; --glass: rgba(255,255,255,0.03);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Poppins,Arial, sans-serif;background:radial-gradient(ellipse at top left, rgba(108,99,255,0.06), transparent 20%), linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 80%);color:#eee;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:28px 20px;display:flex;flex-direction:column;gap:28px;position:relative;z-index:2}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(108,99,255,0.12);font-family:Great Vibes;font-size:26px;color:white}
+.title{font-family:Great Vibes;font-size:36px;color:var(--accent-2);letter-spacing:1px}
+.small{color:#cfc7ff;opacity:0.9}
+.hero{display:grid;grid-template-columns:1fr 420px;gap:26px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.carousel{order:2;height:320px}}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03)}
+.bio{font-size:16px;line-height:1.6;color:#e8e6ff}
+.poem{font-size:18px;margin-top:10px;color:#f7f5ff}
+.typing{font-family:monospace;background:rgba(255,255,255,0.02);display:inline-block;padding:8px 12px;border-radius:8px;margin-top:12px}
+.counter{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.counter .box{min-width:90px;background:linear-gradient(90deg, rgba(108,99,255,0.12), rgba(167,139,250,0.04));padding:10px;border-radius:10px;text-align:center;backdrop-filter: blur(4px);}
+.counter .num{font-size:18px;font-weight:700;color:#fff}
+.counter .label{font-size:11px;color:#ddd}
+.controls{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:#fff;cursor:pointer;backdrop-filter: blur(4px)}
+.btn:hover{transform:translateY(-3px);transition:all .18s}
+.carousel{position:relative;border-radius:16px;overflow:hidden;min-height:420px}
+.carousel .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease, transform 1s ease;filter:brightness(0.6);transform:scale(1.03)}
+.carousel .slides img.active{opacity:1;transform:scale(1)}
+.carousel .dots{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
+.carousel .dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.2);cursor:pointer}
+.carousel .dot.active{background:var(--accent);box-shadow:0 6px 18px rgba(108,99,255,0.14)}
+.carousel-controls{position:absolute;left:12px;top:12px;z-index:5;display:flex;gap:8px}
+.carousel .overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,6,14,0.06), rgba(10,6,14,0.4));pointer-events:none}
+.footer{display:flex;justify-content:space-between;align-items:center;padding:10px 0;color:#aaa;font-size:13px}
+.play-overlay{position:fixed;right:18px;bottom:18px;background:linear-gradient(135deg,var(--accent),var(--accent-2));width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 8px 30px rgba(108,99,255,0.22);cursor:pointer;border:none;z-index:10}
+.universe{position:relative;padding:36px;border-radius:16px;overflow:hidden}
+.universe .inner{position:relative;z-index:3}
+.universe .headline{font-family:Great Vibes;font-size:28px;color:var(--accent-2);margin-bottom:8px}
+.universe .sub{font-size:16px;color:#e9e6ff;opacity:0.95}
+.star-canvas{position:absolute;inset:0;z-index:1}
+.star-layer{position:absolute;inset:0;background:radial-gradient(circle at 10% 20%, rgba(108,99,255,0.06), transparent 5%), radial-gradient(circle at 80% 80%, rgba(167,139,250,0.04), transparent 5%);mix-blend-mode:screen}
+.heart-slow{position:absolute;inset:0;pointer-events:none}
+@media(max-width:600px){
+  .title{font-size:28px}
+  .logo{width:48px;height:48px}
+  .carousel{min-height:320px}
+  .hero{gap:18px}
+  .counter .box{min-width:70px}
+}
+</style>
+</head>
+<body>
+<canvas id="stars" class="star-canvas" aria-hidden="true"></canvas>
+<div class="container">
+  <header class="header">
+    <div class="brand">
+      <div class="logo">💜</div>
+      <div>
+        <div class="title">Para Minha Bela Dama</div>
+        <div class="small">Luiza · 19 de julho de 2025</div>
+      </div>
+    </div>
+    <div class="small">Feito com ♥ por Alexandre</div>
+  </header>
+
+  <section class="hero">
+    <div class="card">
+      <div class="bio">
+        <div id="greeting" style="font-size:20px;font-weight:600">Oi, Luiza 💜</div>
+        <div class="typing" id="poem" aria-live="polite"></div>
+        <div class="poem" id="poem-full" style="display:none"></div>
+
+        <div class="counter" id="counter" aria-label="Tempo juntos">
+          <div class="box"><div class="num" id="days">0</div><div class="label">Dias</div></div>
+          <div class="box"><div class="num" id="hours">00</div><div class="label">Horas</div></div>
+          <div class="box"><div class="num" id="minutes">00</div><div class="label">Minutos</div></div>
+          <div class="box"><div class="num" id="seconds">00</div><div class="label">Segundos</div></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn" id="pause-carousel">Pausar Carrossel</button>
+          <button class="btn" id="toggle-music">Pausar Música</button>
+          <button class="btn" id="reveal-poem">Revelar Poema</button>
+        </div>
+
+      </div>
+    </div>
+
+    <aside class="carousel card" aria-roledescription="carrossel de fotos">
+      <div class="slides" id="slides">
+        <!-- Imagens serão preenchidas via JS -->
+      </div>
+      <div class="overlay"></div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+      <div class="carousel-controls" role="group" aria-label="Controles do carrossel">
+        <button class="btn" id="prev">◀</button>
+        <button class="btn" id="next">▶</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="universe card">
+    <div class="star-layer" aria-hidden="true"></div>
+    <div class="inner">
+      <div class="headline">Nosso Universo</div>
+      <div class="sub">Entre bilhões de possibilidades, o destino compilou nós dois.<br> E em cada batida do tempo, teu nome ecoa no meu universo, bela dama.</div>
+    </div>
+    <div class="heart-slow" aria-hidden="true"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="small">Eu te amo meu amor</div>
+    
+  </footer>
+</div>
+
+<button class="play-overlay" id="playBtn" title="Tocar música" aria-label="Tocar música">▶</button>
+
+<audio id="bg-music" preload="auto" loop>
+  <source src="assets/song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* CONFIG */
+const config = {
+  loverName: 'Luiza',
+  startISO: '2025-07-19T00:00:00-03:00',
+  poem: 'Desde o instante em que te pedi pra ser minha bela dama, o tempo se tornou poesia — e cada segundo com você, uma eternidade de amor.',
+  carouselInterval: 4500,
+  photos: [
+    'assets/photo1.jpg','assets/photo2.jpg','assets/photo3.jpg','assets/photo4.jpg','assets/photo5.jpg','assets/photo6.jpg','assets/photo7.jpg','assets/photo8.jpg','assets/photo9.jpg'
+  ]
+};
+/* END CONFIG */
+
+document.getElementById('greeting').textContent = `Oi, ${config.loverName} 💜`;
+
+/* Typing */
+const poemEl = document.getElementById('poem');
+const fullPoemEl = document.getElementById('poem-full');
+async function typeText(el, text, delay=25){ el.textContent=''; for(let i=0;i<text.length;i++){ el.textContent += text[i]; await new Promise(r=>setTimeout(r, delay)); } }
+// start typing with slight delay
+setTimeout(()=> typeText(poemEl, config.poem, 22), 500);
+
+document.getElementById('reveal-poem').addEventListener('click', ()=>{
+  fullPoemEl.style.display = fullPoemEl.style.display === 'none' ? 'block' : 'none';
+  fullPoemEl.textContent = config.poem;
+});
+
+/* Counter */
+const startTime = new Date(config.startISO).getTime();
+function updateCounter(){
+  const now = Date.now();
+  let diff = now - startTime;
+  if(diff < 0) diff = 0;
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('days').textContent = days;
+  document.getElementById('hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
+}
+updateCounter();
+setInterval(updateCounter,1000);
+
+/* Carousel dynamic build */
+const slidesEl = document.getElementById('slides');
+const dotsEl = document.getElementById('dots');
+config.photos.forEach((p, idx)=>{
+  const img = document.createElement('img');
+  img.src = p;
+  img.alt = `Foto especial ${idx+1}`;
+  if(idx===0) img.classList.add('active');
+  slidesEl.appendChild(img);
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (idx===0 ? ' active' : '');
+  dot.addEventListener('click', ()=> { showSlide(idx); resetInterval(); });
+  dotsEl.appendChild(dot);
+});
+const slides = Array.from(slidesEl.querySelectorAll('img'));
+let current = 0; let paused = false;
+function showSlide(i){ slides.forEach((s,idx)=> s.classList.toggle('active', idx===i)); dotsEl.querySelectorAll('.dot').forEach((d,idx)=> d.classList.toggle('active', idx===i)); current = i; }
+document.getElementById('next').addEventListener('click', ()=>{ showSlide((current+1)%slides.length); resetInterval(); });
+document.getElementById('prev').addEventListener('click', ()=>{ showSlide((current-1+slides.length)%slides.length); resetInterval(); });
+let timer = setInterval(()=>{ if(!paused) showSlide((current+1)%slides.length); }, config.carouselInterval);
+function resetInterval(){ clearInterval(timer); timer = setInterval(()=>{ if(!paused) showSlide((current+1)%slides.length); }, config.carouselInterval); }
+document.getElementById('pause-carousel').addEventListener('click', ()=>{
+  paused = !paused; document.getElementById('pause-carousel').textContent = paused ? 'Reproduzir Carrossel' : 'Pausar Carrossel';
+});
+
+/* Stars background (canvas) */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let W, H, stars = [];
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; initStars(); }
+window.addEventListener('resize', resize);
+function rand(min,max){ return Math.random()*(max-min)+min; }
+function initStars(){ stars=[]; const count = Math.floor((W*H)/60000); for(let i=0;i<count;i++){ stars.push({x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.2+0.2, alpha:Math.random()*0.8+0.2, speed:Math.random()*0.2+0.02}); } }
+function drawStars(){ ctx.clearRect(0,0,W,H); for(const s of stars){ ctx.beginPath(); ctx.fillStyle = `rgba(255,255,255,${s.alpha})`; ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill(); s.x += Math.cos(s.y)*0.0005; s.y -= s.speed; if(s.y < -10){ s.y = H+10; s.x = Math.random()*W; } }
+  requestAnimationFrame(drawStars);
+}
+resize(); drawStars();
+
+/* Slow floating hearts in universe section */
+const heartLayer = document.querySelector('.heart-slow');
+function makeSlowHeart(){ const h = document.createElement('div'); h.textContent='💜'; h.style.position='absolute'; h.style.left = Math.random()*80+'%'; h.style.bottom = '-20px'; const size = Math.random()*26+12; h.style.fontSize = size+'px'; h.style.opacity = 0.08 + Math.random()*0.14; const dur = 12 + Math.random()*12; h.style.transition = `transform ${dur}s linear, opacity ${dur}s linear`; heartLayer.appendChild(h); requestAnimationFrame(()=> h.style.transform = `translateY(-${120+Math.random()*40}vh) rotate(${Math.random()*360}deg)`); setTimeout(()=> h.remove(), dur*1000); }
+setInterval(makeSlowHeart, 2200);
+
+/* Music controls + autoplay handling */
+const audio = document.getElementById('bg-music');
+const playBtn = document.getElementById('playBtn');
+const toggleMusicBtn = document.getElementById('toggle-music');
+let musicPlaying = false;
+async function tryAutoPlay(){ try{ await audio.play(); musicPlaying = true; playBtn.style.display='none'; toggleMusicBtn.textContent='Pausar Música'; }catch(e){ playBtn.style.display='flex'; musicPlaying = false; toggleMusicBtn.textContent='Tocar Música'; } }
+window.addEventListener('load', ()=> tryAutoPlay());
+playBtn.addEventListener('click', async ()=>{ try{ await audio.play(); musicPlaying = true; playBtn.style.display='none'; toggleMusicBtn.textContent='Pausar Música'; }catch(e){ alert('Não foi possível reproduzir a música. Verifique assets/song.mp3'); } });
+if(toggleMusicBtn){ toggleMusicBtn.addEventListener('click', ()=>{ if(musicPlaying){ audio.pause(); musicPlaying = false; toggleMusicBtn.textContent = 'Tocar Música'; playBtn.style.display='flex'; } else { audio.play().then(()=>{ musicPlaying = true; toggleMusicBtn.textContent='Pausar Música'; playBtn.style.display='none'; }).catch(()=>{ alert('Navegador bloqueou autoplay. Clique no ícone para tocar.'); playBtn.style.display='flex'; }); } }); }
+
+// accessibility: space toggles music
+document.addEventListener('keydown', (e)=>{ if(e.code === 'Space'){ e.preventDefault(); toggleMusicBtn && toggleMusicBtn.click(); } });
+
+/* Small UX: pause hearts when tab not visible */
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ /* pause animations if needed */ } });
+
+</script>
+</body>
+</html>
